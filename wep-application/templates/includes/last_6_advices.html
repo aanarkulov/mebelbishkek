@@ -1,0 +1,25 @@
+<div class="advice">
+    <h2 class="page-heading uk-text-center">
+        Советы нашего дизайнера
+    </h2>
+
+    <div class="uk-grid adviceGrid uk-child-width-1-2@m uk-child-width-1-1" uk-collapse>
+        {% if advices %}
+            {% for advice in advices %}
+                <div class="adviceGridItem">
+                    <div class="adviceItem"
+                         style="background: #e7cb15 url({{ advice.image.url }}) right  no-repeat">
+                        <span class="adViews">145</span><br>
+                        <span class="adCount">#{{ forloop.counter }}</span><br>
+                        <h3 class="adHeading">{{ advice.title|safe }}</h3><br>
+                        <a href="{% url 'webapp:advice' advice.slug %}" class="genButton adButton">Читать</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="uk-text-center">
+        <a href="{% url 'webapp:advices' %}" class="genButton showButton">Показать все</a>
+    </div>
+</div>

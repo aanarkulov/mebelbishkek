@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}
+    <title>{% trans "Наши работы" %}</title>
+{% endblock %}
+{% block content %}
+    <section class="project">
+
+        <div class="uk-container">
+
+            <h2 class="page-heading uk-text-center">{% trans "Наши работы" %}</h2>
+
+            <div class="uk-grid projectGrid uk-child-width-1-3@l uk-child-width-1-2@s uk-child-width-1-1">
+                {% if catalogs %}
+                    {% for catalog in catalogs %}
+                        <div class="projectItem">
+                            <div class="services-pageGridItem" style="height: 360px">
+                                <div class="proImgWrap">
+                                    <a href="{% url 'works:works' filter_slug=catalog.filter.slug category_slug='kabinety' %}">
+                                        <img class="proImg" src="{{ catalog.image.url }}" alt="">
+                                    </a>
+                                </div>
+                                <p class="serv-desc">{{ catalog.filter|safe }}</p>
+                                <a href="{% url 'works:works' filter_slug=catalog.filter.slug category_slug='kabinety' %}"
+                                   class="genButton orderButton servButton proButton">{% trans "Смотреть примеры" %}</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+        </div>
+
+        {% include 'includes/content.html' %}
+
+        {% include 'includes/last_6_advices.html' %}
+
+    </section>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}
+    <title>{% trans "Контакты" %}</title>
+{% endblock %}
+{% block content %}
+    <div class="contact-page">
+        <div class="uk-container">
+            <h2 class="page-heading uk-text-center">{% trans "Контакты" %}</h2>
+
+            <div class="uk-grid contactPageGrid uk-child-width-1-2@m uk-child-width-1-1">
+                <div>
+                    {% if contacts %}
+                        {% for contact in contacts %}
+                            <div>
+                                <div class="contactGridItem">
+                                    <div class="white-icon">
+                                        <img src="{{ contact.icon_for_page.url }}" alt="" class="contactPageIcon">
+                                    </div>
+                                    <span class="iconHeading yellInfo">{{ contact.title }}</span><br>
+                                    <span class="iconContent whiteInfo">{{ contact.description }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% load staticfiles %}
+                    <div class="socialContact">
+                        <span class="yellInfo">{% trans "мы в соц. сетях" %}</span>
+                        {% if social_links %}
+                            {% for item in social_links %}
+                                <a href="{{ item.link }}">
+                                    <div class="white-icon">
+                                        <img src="{{ item.icon.url }}" alt="">
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div>
+                    <div class="contactRightBox ">
+                        <h2 class="pop-heading">{% trans "Свяжитесь с нами" %}</h2>
+                        <p class="pop-para">{% trans "Вопросы и ответы можете задать прямо тут" %}</p>
+                        <form action="{% url 'webapp:feedback' %}" method="post" onsubmit="validfeed(this)">
+                            {% csrf_token %}
+                            <input class="uk-input popInput" name="name" type="text" placeholder="{% trans "Имя" %}">
+                            <input class="uk-input popInput" name="phone" type="text" placeholder="{% trans "Телефон" %}">
+                            <textarea class="uk-textarea popArea" name="message" rows="5"
+                                      placeholder="{% trans "Напишите свой вопрос или пожелание" %}"></textarea>
+                            <button class="genButton orderButton popButton">{% trans "Отправить" %}</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="map">
+
+                <div id="googleMap" style="width:100%;height:400px;"></div>
+
+                <script>
+                    function myMap() {
+                        var mapProp = {
+                            center: new google.maps.LatLng({{ coordinate.position }}),
+                            zoom: 18,
+                        };
+                        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                    }
+                </script>
+
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUl5OmV1PaWScEhBiad2BGOMkorZvQucE&callback=myMap"></script>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

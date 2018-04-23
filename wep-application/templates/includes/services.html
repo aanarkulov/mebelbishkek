@@ -1,0 +1,16 @@
+{% if services %}
+    {% for service in services %}
+        <div>
+            <a href="{% url 'webapp:service' service.slug %}">
+                <div class="services-pageGridItem">
+                    <div class="iconCover">
+                        <img src="{{ service.icon.url }}" alt="">
+                    </div>
+                    <p class="serv-desc">{{ service.title }}</p>
+                    <a href="{% url 'webapp:service' service.slug %}"
+                       class="genButton orderButton servButton">Подробнее</a>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+{% endif %}

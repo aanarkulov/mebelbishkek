@@ -1,0 +1,24 @@
+<div class="serv-article">
+    <div class="uk-container">
+        <div class="art-block">
+            {% if content %}
+                    <img class="uk-float-left art-chair" src="{{ content.image.url }}" alt="">
+
+                    <div class="art-text">
+                        <h3 class="about-page-heading">{{ content.title }}</h3>
+
+                        <p class="normal-para">{{ content.description }}</p>
+                    </div>
+            {% endif %}
+
+            {% if guarantees %}
+                {% for guarantee in guarantees %}
+                    <p class="safe-para">
+                        <img class="uk-float-left safe-icon" src="{{ guarantee.image.url }}" alt="">
+                        {{ guarantee.description }}
+                    </p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>

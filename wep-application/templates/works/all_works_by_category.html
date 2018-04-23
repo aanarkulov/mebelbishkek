@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}
+    <title>{{ filter.filter }}</title>
+{% endblock %}
+{% load staticfiles %}
+{% block content %}
+    <section class="project-inside">
+        <div class="uk-container">
+            <h2 class="page-heading uk-text-center">{{ filter.title }}</h2>
+
+            <div class="pro-icon-wrapper">
+                {% if categories %}
+                    {% for category in categories %}
+                        <div class="pro-item">
+                            <a href="{% url 'works:all_works' filter_slug=filter.slug category_slug=category.slug %}"
+                               class="pro-icon-link">
+                                <div class="pro-icon-item">
+                                    <img src="{{ category.icon.url }}" alt=""><br>
+                                    <span class="pro-icon-name">{{ category.title }}</span>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="uk-grid uk-child-width-1-2@l uk-child-width-1-1@m pro-block" uk-lightbox>
+                {% if works %}
+                    {% for work in works %}
+                        <div class="pro-block-item-wrapper">
+                            <div class="pro-block-item">
+                                <a href="{{ work.img.url }}">
+                                    <img class="pro-img" src="{{ work.image.url }}" alt="">
+                                    <div class="pro-block-item-show">
+                                        <span class="pro-block-name">{{ work.style }}</span>
+                                        <h3 class="pro-block-heading">{{ work.title }}</h3>
+                                        <p class="pro-block-para">{{ work.description }}</p>
+                                        <div class="pro-block-icon">
+                                            <img src="{% static 'img/png/search.png' %}" alt="">
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% if not works %}
+                    <h2>{% trans "В этой категории работ нет" %}</h2>
+                {% endif %}
+            </div>
+
+        </div>
+        {% include 'includes/content.html' %}
+        {% include 'includes/last_6_advices.html' %}
+    </section>
+{% endblock %}

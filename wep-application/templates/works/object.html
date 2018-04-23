@@ -1,0 +1,18 @@
+{% load staticfiles %}
+{% for work in works %}
+    <div class="pro-block-item-wrapper">
+        <div class="pro-block-item">
+            <a href="{{ work.image.url }}">
+                <img class="pro-img" src="{{ work.image.url }}" alt="">
+                <div class="pro-block-item-show">
+                    <span class="pro-block-name">{{ work.style }}</span>
+                    <h3 class="pro-block-heading">{{ work.title }}</h3>
+                    <p class="pro-block-para">{{ work.description }}</p>
+                    <div class="pro-block-icon">
+                        <img src="{% static 'img/png/search.png' %}" alt="">
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+{% endfor %}

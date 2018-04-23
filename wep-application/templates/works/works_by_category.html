@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}
+    <title>{{ filter.title }}</title>
+{% endblock %}
+{% load staticfiles %}
+{% block content %}
+    <section class="project-inside">
+        <div class="uk-container">
+            <h2 class="page-heading uk-text-center">{{ filter.title }}</h2>
+            <div class="pro-icon-wrapper">
+                {% if categories %}
+                    {% for category in categories %}
+                        <div class="pro-item">
+                            <a href="{% url 'works:works' filter_slug=filter.slug category_slug=category.slug %}"
+                               class="pro-icon-link">
+                                <div class="pro-icon-item">
+                                    <img src="{{ category.icon.url }}" alt=""><br>
+                                    <span class="pro-icon-name">{{ category.title }}</span>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div id="pagediv-id" class="uk-grid uk-child-width-1-2@l uk-child-width-1-1@m pro-block" uk-lightbox>
+                {% include 'works/object.html' %}
+            </div>
+            <ul class="preloader" id="loading" style="display: none;">
+                <li class="circ1"></li>
+                <li class="circ2"></li>
+                <li class="circ3"></li>
+                <li class="circ4"></li>
+            </ul>
+            {% if is_paginated %}
+                <div class="uk-padding-remove-horizontal uk-text-center uk-width-1-1">
+                    <input type='hidden' id='pagination-id' value='{{ page_obj.next_page_number }}'>
+                </div>
+                <a id="load-id" class="genButton showButton" style="margin: 0">{% trans "Показать все" %}</a>
+            {% endif %}
+
+        </div>
+        {% include 'includes/content.html' %}
+{#        {% include 'includes/last_6_advices.html' %}#}
+    </section>
+{% endblock %}
+{% block js %}
+
+<script src="{% static 'js/ajax-pagination.js' %}"></script>
+<script>
+    var page_url = window.location.href;
+    $("#load-id").click(function () {
+        load_page(page_url, "#pagination-id", "#load-id", "#pagediv-id", function (callback) {
+        });
+    });
+</script>
+{% endblock %}

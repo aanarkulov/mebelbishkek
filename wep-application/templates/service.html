@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}
+    <title>{% trans service.title %}</title>
+{% endblock %}
+{% load staticfiles %}
+
+{% block content %}
+    <section class="service-inside">
+        {% if service.image %}
+            <div class="uk-container">
+                <h2 class="page-heading uk-text-center">{{ service.title }}</h2>
+                <div class="main-service">
+                    <div class=" main-service-img">
+                        <img src="{{ service.image.url }}" alt="">
+                    </div>
+
+                    <div class="uk-grid iconGridService uk-child-width-1-3@s uk-child-width-1-1">
+
+                        <div>
+                            <div class="icon-wrapper">
+                                <div class="white-icon">
+                                    <img src="{% static 'img/png/price-tag.png' %}" alt="">
+                                </div>
+                                <div class="service-cont-wrapper">
+                                    <span class="up-service">Цена</span><br>
+                                    <span class="down-service">{{ service.price }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="icon-wrapper">
+                                <div class="white-icon">
+                                    <img src="{% static 'img/png/calendar.png' %}" alt="">
+                                </div>
+                                <div class="service-cont-wrapper">
+                                    <span class="up-service">Сроки</span><br>
+                                    <span class="down-service">{{ service.term }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <a class="genButton orderButton servInButton"
+                               uk-toggle="target: #order-popup2">{% trans "Заказать услугу" %}</a>
+                        </div>
+
+                    </div>
+                    <p class="black-article">{{ service.text }}</p>
+                    <p class="main-article">{{ service.text2 }}</p>
+                </div>
+                <h2 class="page-heading uk-text-center">{% trans "Другие услуги" %}</h2>
+                <div class="uk-grid service-pageGrid uk-child-width-1-4@l uk-child-width-1-2@m uk-child-width-1-2@s uk-child-width-1-1">
+                    {% include 'includes/services.html' %}
+                </div>
+                {% include 'includes/last_6_advices.html' %}
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

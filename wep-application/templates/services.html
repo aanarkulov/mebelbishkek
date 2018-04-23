@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}
+    <title>{% trans "Наши услуги" %}</title>
+{% endblock %}
+{% block content %}
+    <section class="service-page">
+        <div class="uk-container">
+            <h2 class="page-heading uk-text-center">{% trans "Наши услуги" %}</h2>
+            <div class="uk-grid service-pageGrid uk-child-width-1-4@l uk-child-width-1-2@m uk-child-width-1-2@s uk-child-width-1-1">
+                {% include 'includes/services.html' %}
+            </div>
+        </div>
+        {% include 'includes/content.html' %}
+        <div class="uk-container">
+            {% include 'includes/last_6_advices.html' %}
+        </div>
+    </section>
+{% endblock %}
